@@ -1,0 +1,13 @@
+[project]
+name = "kratos-selfservice-ui"
+version = "0.0.1"
+description = "Mountable FastAPI + React reference self-service UI for Ory Kratos."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.14"
+authors = [{ name = "Siddhesh More" }]
+keywords = ["ory", "kratos", "fastapi", "react", "self-service", "identity"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
