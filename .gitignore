@@ -43,3 +43,5 @@ playwright/.cache/
 
 # potentially sensitive files
 *.pem
+
+*.tsbuildinfo
