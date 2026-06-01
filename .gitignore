@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# uv
+.python-version.local
+
+# Node / Vite
+node_modules/
+frontend/dist/
+*.log
+.npm/
+.pnpm-store/
+
+# Built SPA assets injected into the Python package
+backend/src/kratos_selfservice_ui/_dist/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# env files
+.env
+
+# potentially sensitive files
+*.pem
