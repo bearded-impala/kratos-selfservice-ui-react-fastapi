@@ -8,6 +8,10 @@ requires-python = ">=3.14"
 authors = [{ name = "Siddhesh More" }]
 keywords = ["ory", "kratos", "fastapi", "react", "self-service", "identity"]
 
+dependencies = [
+    "fastapi>=0.136.1",
+]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
