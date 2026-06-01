@@ -11,7 +11,8 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowImportingTsExtensions": false,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["vite/client"]
   },
   "include": ["src"]
 }

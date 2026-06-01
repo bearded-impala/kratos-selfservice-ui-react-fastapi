@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ory/client-fetch": "1.22.36",
+    "@ory/elements-react": "1.0.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-router-dom": "7.15.1"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",
