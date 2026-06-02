@@ -104,3 +104,19 @@ poe -d <task>         # dry-run (print the resolved command)
 poe docker-build
 KRATOS_PUBLIC_URL=http://host.docker.internal:4433 poe docker-run
 ```
+
+Or pull the published image from GHCR:
+
+```yaml
+# compose.yaml
+services:
+  kratos-selfservice-ui:
+    image: ghcr.io/bearded-impala/kratos-selfservice-ui-react-fastapi:latest
+    ports: ["4455:4455"]
+    environment:
+      KRATOS_PUBLIC_URL: http://host.docker.internal:4433
+```
+
+```bash
+docker compose up
+```
