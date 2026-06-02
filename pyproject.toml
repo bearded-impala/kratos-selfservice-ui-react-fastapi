@@ -11,7 +11,7 @@ keywords = ["ory", "kratos", "fastapi", "react", "self-service", "identity"]
 dependencies = [
     "fastapi>=0.136.1",
     "httpx>=0.28.0",
-    "uvicorn>=0.40",
+    "uvicorn>=0.47.0",
 ]
 
 [project.scripts]
@@ -26,3 +26,8 @@ packages = ["backend/src/kratos_selfservice_ui"]
 
 [tool.hatch.build.targets.wheel.sources]
 "backend/src" = ""
+
+[dependency-groups]
+dev = [
+    "poethepoet>=0.46.0",
+]
