@@ -1,11 +1,10 @@
-import { type RecoveryFlow } from "@ory/client-fetch";
+import { FlowType, type RecoveryFlow } from "@ory/client-fetch";
 import { Recovery } from "@ory/elements-react/theme";
 import { oryClient, oryConfig } from "../ory";
 import { useFlow } from "../hooks/useFlow";
-import { FlowType } from "../constants/routes";
 
 export function RecoveryPage() {
-  const flow = useFlow<RecoveryFlow>(FlowType.RECOVERY, (id) =>
+  const flow = useFlow<RecoveryFlow>(FlowType.Recovery, (id) =>
     oryClient.getRecoveryFlowRaw({ id }).then((res) => res.value()),
   );
 
