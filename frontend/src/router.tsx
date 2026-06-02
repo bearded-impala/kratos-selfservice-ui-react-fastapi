@@ -3,11 +3,13 @@ import { LoginPage } from "./routes/Login";
 import { RegistrationPage } from "./routes/Registration";
 import { RecoveryPage } from "./routes/Recovery";
 import { VerificationPage } from "./routes/Verification";
+import { SettingsPage } from "./routes/Settings";
 
 export const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
   { path: "/registration", element: <RegistrationPage /> },
   { path: "/recovery", element: <RecoveryPage /> },
   { path: "/verification", element: <VerificationPage /> },
+  { path: "/settings", element: <SettingsPage /> },
   { path: "*", element: <Navigate to="/login" replace /> },
 ]);

@@ -16,7 +16,6 @@ export const oryClient = new FrontendApi(
 const project: AccountExperienceConfiguration = {
   name: "Kratos Self-Service UI",
   default_locale: "en",
-  enabled_locales: ["en"],
   locale_behavior: "force_default",
   default_redirect_url: "/",
   login_ui_url: "/login",
@@ -28,7 +27,6 @@ const project: AccountExperienceConfiguration = {
   registration_enabled: true,
   recovery_enabled: true,
   verification_enabled: true,
-  translations: [],
 }
 
 export const oryConfig: OryClientConfiguration = { project }
