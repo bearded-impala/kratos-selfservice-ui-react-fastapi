@@ -20,16 +20,15 @@ def create_app() -> FastAPI:
 
     app.include_router(proxy_router)
 
-    if _FRONTEND_DIST.is_dir():
-        app.mount(
-            "/assets",
-            StaticFiles(directory=_FRONTEND_DIST / "assets"),
-            name="assets",
-        )
-        index_html = _FRONTEND_DIST / "index.html"
+    app.mount(
+        "/assets",
+        StaticFiles(directory=_FRONTEND_DIST / "assets"),
+        name="assets",
+    )
+    index_html = _FRONTEND_DIST / "index.html"
 
-        @app.get("/{full_path:path}", include_in_schema=False)
-        def spa_fallback(full_path: str) -> FileResponse:
-            return FileResponse(index_html)
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def spa_fallback(full_path: str) -> FileResponse:
+        return FileResponse(index_html)
 
     return app
