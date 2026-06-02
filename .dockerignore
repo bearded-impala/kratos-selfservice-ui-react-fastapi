@@ -1,0 +1,28 @@
+.git/
+.gitignore
+.venv/
+.python-version
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.docs/
+.vscode/
+.idea/
+.DS_Store
+
+# Build outputs — regenerated inside the image
+dist/
+build/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+backend/src/kratos_selfservice_ui/_dist/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+*.log
+
+# Env
+.env
+*.pem
