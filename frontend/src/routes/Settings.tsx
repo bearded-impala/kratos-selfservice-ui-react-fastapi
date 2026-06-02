@@ -2,9 +2,10 @@ import { type SettingsFlow } from "@ory/client-fetch";
 import { Settings } from "@ory/elements-react/theme";
 import { oryClient, oryConfig } from "../ory";
 import { useFlow } from "../hooks/useFlow";
+import { FlowType } from "../constants/routes";
 
 export function SettingsPage() {
-  const flow = useFlow("settings", (id) =>
+  const flow = useFlow(FlowType.SETTINGS, (id) =>
     oryClient.getSettingsFlowRaw({ id }).then((res) => res.value()),
   );
 
