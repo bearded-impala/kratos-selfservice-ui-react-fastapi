@@ -27,10 +27,6 @@
   "mounts": [
     "source=devcontainer-zshhistory,target=/commandhistory,type=volume"
   ],
-  "forwardPorts": [4455],
-  "portsAttributes": {
-    "4455": { "label": "kratos-selfservice-ui" }
-  },
   "postCreateCommand": ["bash", ".devcontainer/scripts/post_create.sh"],
   "customizations": {
     "vscode": {
