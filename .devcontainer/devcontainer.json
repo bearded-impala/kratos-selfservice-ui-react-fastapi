@@ -1,0 +1,85 @@
+{
+  "name": "kratos-selfservice-ui-dev",
+  "image": "mcr.microsoft.com/devcontainers/base:bookworm",
+  "containerEnv": {
+    "LANG": "en_US.UTF-8"
+  },
+  "remoteEnv": {
+    "UV_LINK_MODE": "copy",
+    "UV_SYSTEM_CERTS": "true"
+  },
+  "runArgs": [
+    "--add-host=host.docker.internal:host-gateway"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2.5.9": {
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1.10.0": {
+      "moby": false
+    },
+    "ghcr.io/jsburckhardt/devcontainer-features/uv:1": {},
+    "ghcr.io/devcontainers/features/node:2.0.0": {
+      "version": "24"
+    },
+    "ghcr.io/devcontainers-extra/features/ripgrep:1": {}
+  },
+  "mounts": [
+    "source=devcontainer-zshhistory,target=/commandhistory,type=volume"
+  ],
+  "forwardPorts": [4455],
+  "portsAttributes": {
+    "4455": { "label": "kratos-selfservice-ui" }
+  },
+  "postCreateCommand": ["bash", ".devcontainer/scripts/post_create.sh"],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "[python]": {
+          "editor.tabSize": 4,
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        },
+        "python.terminal.activateEnvironment": false,
+        "python-envs.terminal.autoActivationType": "off",
+        "[javascript]": {
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescript]": {
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "[typescriptreact]": {
+          "editor.tabSize": 2,
+          "editor.insertSpaces": true,
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        },
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "files.exclude": {
+          "**/.git": true,
+          "**/.DS_Store": true,
+          "**/__pycache__": true,
+          "**/.mypy_cache": true,
+          "**/.ruff_cache": true
+        },
+        "remote.autoForwardPorts": true,
+        "remote.autoForwardPortsSource": "process"
+      },
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "bierner.markdown-mermaid",
+        "GitHub.copilot"
+      ]
+    }
+  }
+}
