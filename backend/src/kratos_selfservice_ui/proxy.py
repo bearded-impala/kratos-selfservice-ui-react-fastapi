@@ -44,11 +44,7 @@ def build_lifespan(kratos_public_url: str):
 router = APIRouter()
 
 
-@router.api_route(
-    "/self-service/{path:path}",
-    methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"],
-)
-async def proxy(path: str, request: Request) -> Response:
+async def _forward(upstream_path: str, request: Request) -> Response:
     client: httpx.AsyncClient = request.app.state.kratos_client
     headers = {
         k: v for k, v in request.headers.items()
@@ -57,7 +53,7 @@ async def proxy(path: str, request: Request) -> Response:
     body = await request.body()
     upstream = await client.request(
         request.method,
-        f"/self-service/{path}",
+        upstream_path,
         params=request.query_params,
         headers=headers,
         content=body,
@@ -72,3 +68,16 @@ async def proxy(path: str, request: Request) -> Response:
         status_code=upstream.status_code,
         headers=dict(response_headers),
     )
+
+
+_PROXY_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "HEAD"]
+
+
+@router.api_route("/self-service/{path:path}", methods=_PROXY_METHODS)
+async def proxy_self_service(path: str, request: Request) -> Response:
+    return await _forward(f"/self-service/{path}", request)
+
+
+@router.api_route("/sessions/{path:path}", methods=_PROXY_METHODS)
+async def proxy_sessions(path: str, request: Request) -> Response:
+    return await _forward(f"/sessions/{path}", request)
