@@ -1,0 +1,33 @@
+[tasks.install]
+help = "Install backend (uv) and frontend (npm) dependencies."
+sequence = [
+  { cmd = "uv sync" },
+  { cmd = "npm ci", cwd = "frontend" },
+]
+
+[tasks.build]
+help = "Build the React SPA into frontend/dist."
+cmd = "npm run build"
+cwd = "frontend"
+
+[tasks.dev]
+help = "Run the UI. Override KRATOS_PUBLIC_URL / PORT as needed."
+cmd = "uv run kratos-selfservice-ui"
+env = { KRATOS_PUBLIC_URL.default = "http://127.0.0.1:4433", PORT.default = "4455" }
+
+[tasks.up]
+help = "One-shot: install + build + run the UI."
+sequence = ["install", "build", "dev"]
+
+[tasks.docker-build]
+help = "Build the production container image."
+cmd = "docker build -t kratos-selfservice-ui:dev ."
+
+[tasks.docker-run]
+help = "Run the production image. Override KRATOS_PUBLIC_URL as needed."
+cmd = """
+docker run --rm --name kratos-ui
+  -p 4455:4455
+  -e KRATOS_PUBLIC_URL=${KRATOS_PUBLIC_URL:-http://host.docker.internal:4433}
+  kratos-selfservice-ui:dev
+"""

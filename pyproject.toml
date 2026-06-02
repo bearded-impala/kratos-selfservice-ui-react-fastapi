@@ -31,3 +31,6 @@ packages = ["backend/src/kratos_selfservice_ui"]
 dev = [
     "poethepoet>=0.46.0",
 ]
+
+[tool.poe]
+include = "poe.toml"
