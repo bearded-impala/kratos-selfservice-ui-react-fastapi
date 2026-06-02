@@ -5,7 +5,7 @@ import { useFlow } from "../hooks/useFlow";
 import { FlowType } from "../constants/routes";
 
 export function RecoveryPage() {
-  const flow = useFlow(FlowType.RECOVERY, (id) =>
+  const flow = useFlow<RecoveryFlow>(FlowType.RECOVERY, (id) =>
     oryClient.getRecoveryFlowRaw({ id }).then((res) => res.value()),
   );
 

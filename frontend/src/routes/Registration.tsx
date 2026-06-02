@@ -5,7 +5,7 @@ import { useFlow } from "../hooks/useFlow";
 import { FlowType } from "../constants/routes";
 
 export function RegistrationPage() {
-  const flow = useFlow(FlowType.REGISTRATION, (id) =>
+  const flow = useFlow<RegistrationFlow>(FlowType.REGISTRATION, (id) =>
     oryClient.getRegistrationFlowRaw({ id }).then((res) => res.value()),
   );
 

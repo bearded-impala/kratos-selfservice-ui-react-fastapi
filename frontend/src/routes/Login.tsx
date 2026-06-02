@@ -5,7 +5,7 @@ import { useFlow } from "../hooks/useFlow";
 import { FlowType } from "../constants/routes";
 
 export function LoginPage() {
-  const flow = useFlow(FlowType.LOGIN, (id) =>
+  const flow = useFlow<LoginFlow>(FlowType.LOGIN, (id) =>
     oryClient.getLoginFlowRaw({ id }).then((res) => res.value()),
   );
 

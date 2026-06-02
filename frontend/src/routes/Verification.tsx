@@ -5,7 +5,7 @@ import { useFlow } from "../hooks/useFlow";
 import { FlowType } from "../constants/routes";
 
 export function VerificationPage() {
-  const flow = useFlow(FlowType.VERIFICATION, (id) =>
+  const flow = useFlow<VerificationFlow>(FlowType.VERIFICATION, (id) =>
     oryClient.getVerificationFlowRaw({ id }).then((res) => res.value()),
   );
 

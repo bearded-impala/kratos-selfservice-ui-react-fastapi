@@ -5,7 +5,7 @@ import { useFlow } from "../hooks/useFlow";
 import { FlowType } from "../constants/routes";
 
 export function SettingsPage() {
-  const flow = useFlow(FlowType.SETTINGS, (id) =>
+  const flow = useFlow<SettingsFlow>(FlowType.SETTINGS, (id) =>
     oryClient.getSettingsFlowRaw({ id }).then((res) => res.value()),
   );
 
