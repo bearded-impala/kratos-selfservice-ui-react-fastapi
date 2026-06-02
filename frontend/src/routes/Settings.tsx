@@ -2,6 +2,7 @@ import { FlowType, type SettingsFlow } from "@ory/client-fetch";
 import { Settings } from "@ory/elements-react/theme";
 import { oryClient, oryConfig } from "../ory";
 import { useFlow } from "../hooks/useFlow";
+import { LogoutLink } from "../components/LogoutLink";
 
 export function SettingsPage() {
   const flow = useFlow<SettingsFlow>(FlowType.Settings, (id) =>
@@ -10,5 +11,10 @@ export function SettingsPage() {
 
   if (!flow) return null;
 
-  return <Settings flow={flow} config={oryConfig} />;
+  return (
+    <>
+      <Settings flow={flow} config={oryConfig} />
+      <LogoutLink />
+    </>
+  );
 }
