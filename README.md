@@ -1,4 +1,4 @@
-# Kratos Self-Service UI — React + FastAPI
+# Kratos Self-Service UI: Ory Elements React + FastAPI
 
 A reference self-service UI for [Ory Kratos](https://www.ory.sh/kratos/), built
 as a **mountable FastAPI app** that serves a **Vite + React SPA** powered by
@@ -12,7 +12,24 @@ Drop-in replacement for
 ## Prerequisites
 
 - **Reopen in Container:**
-- **A running Ory Kratos:** This repo does not manage Kratos, BYOK. Make sure its **public** port is reachable from this UI process and that its self-service flow `ui_url`s point back at where you run this UI (default `http://127.0.0.1:4455/<flow>`).
+
+- **Ory Kratos:**
+This repo does not manage Kratos, BYOK. Make sure its **public** port is reachable from this UI process and that its self-service flow `ui_url`s point back at where you run this UI (default `http://127.0.0.1:4455/<flow>`).
+  
+`kratos.yml` must set the self-service flow `ui_url`s to this UI like follows:
+
+```yaml
+selfservice:
+  default_browser_return_url: http://127.0.0.1:4455/
+  allowed_return_urls: [http://127.0.0.1:4455]
+  flows:
+    login:        { ui_url: http://127.0.0.1:4455/login }
+    registration: { ui_url: http://127.0.0.1:4455/registration }
+    recovery:     { ui_url: http://127.0.0.1:4455/recovery }
+    verification: { ui_url: http://127.0.0.1:4455/verification }
+    settings:     { ui_url: http://127.0.0.1:4455/settings }
+    error:        { ui_url: http://127.0.0.1:4455/error }
+```
   
 ---
 
@@ -23,8 +40,16 @@ uv sync
 poe up   # installs frontend, builds SPA, runs UI on :4455
 ```
 
-UI is now on **http://127.0.0.1:4455**, proxying to the Kratos public API at
-`KRATOS_PUBLIC_URL` (defaults to `http://host.docker.internal:4433`).
+
+UI is now on **http://127.0.0.1:4455**
+
+`poe dev` defaults `KRATOS_PUBLIC_URL=http://host.docker.internal:4433` and `PORT=4455` for convenience.
+
+To point at a different Kratos:
+
+```bash
+KRATOS_PUBLIC_URL=http://kratos.local:4433 poe dev
+```
 
 Test routes in a browser:
 
@@ -42,7 +67,8 @@ renders the corresponding `@ory/elements-react` component.
 
 ---
 
-## Configuration
+
+## Run as container
 
 Two environment variables:
 
@@ -51,72 +77,23 @@ Two environment variables:
 | `KRATOS_PUBLIC_URL` | yes       | Kratos public endpoint to proxy (e.g. `http://host.docker.internal:4433`) |
 | `PORT`              | no (4455) | Port the UI listens on                          |
 
-> `poe dev` defaults `KRATOS_PUBLIC_URL=http://host.docker.internal:4433` and `PORT=4455` for convenience.
-
-To point at a different Kratos:
-
-```bash
-KRATOS_PUBLIC_URL=http://kratos.local:4433 poe dev
-```
-
-On the Kratos side, your `kratos.yml` must set the self-service flow `ui_url`s to this UI — e.g.:
-
-```yaml
-selfservice:
-  default_browser_return_url: http://127.0.0.1:4455/
-  allowed_return_urls: [http://127.0.0.1:4455]
-  flows:
-    login:        { ui_url: http://127.0.0.1:4455/login }
-    registration: { ui_url: http://127.0.0.1:4455/registration }
-    recovery:     { ui_url: http://127.0.0.1:4455/recovery }
-    verification: { ui_url: http://127.0.0.1:4455/verification }
-    settings:     { ui_url: http://127.0.0.1:4455/settings }
-    error:        { ui_url: http://127.0.0.1:4455/error }
-```
-
-And CORS must allow the UI origin:
-
-```yaml
-serve:
-  public:
-    cors:
-      enabled: true
-      allowed_origins: [http://127.0.0.1:4455]
-      allow_credentials: true
-```
-
----
-
-## Tasks
-
-All workflow commands are defined in [poe.toml](poe.toml)
-
-```bash
-poe --help            # list tasks
-poe -d <task>         # dry-run (print the resolved command)
-```
-
----
-
-## Run as container
 
 ```bash
 poe docker-build
 KRATOS_PUBLIC_URL=http://host.docker.internal:4433 poe docker-run
 ```
 
-Or pull the published image from GHCR:
+## Docker compose reference
+
+Pulls the published image from GHCR:
 
 ```yaml
-# compose.yaml
+...
 services:
   kratos-selfservice-ui:
     image: ghcr.io/bearded-impala/kratos-selfservice-ui-react-fastapi:latest
     ports: ["4455:4455"]
     environment:
       KRATOS_PUBLIC_URL: http://host.docker.internal:4433
-```
-
-```bash
-docker compose up
+...
 ```
