@@ -10,6 +10,10 @@ help = "Build the React SPA into frontend/dist."
 cmd = "npm run build"
 cwd = "frontend"
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Mode 1 — Local Development
+# ──────────────────────────────────────────────────────────────────────────────
+
 [tasks.dev]
 help = "Run the UI. Override KRATOS_PUBLIC_URL / PORT as needed."
 cmd = "uv run kratos-selfservice-ui"
@@ -18,6 +22,10 @@ env = { KRATOS_PUBLIC_URL.default = "http://host.docker.internal:4433", PORT.def
 [tasks.up]
 help = "One-shot: install + build + run the UI."
 sequence = ["install", "build", "dev"]
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Mode 2 — Container
+# ──────────────────────────────────────────────────────────────────────────────
 
 [tasks.docker-build]
 help = "Build the production container image."
