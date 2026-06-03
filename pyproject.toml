@@ -1,6 +1,6 @@
 [project]
 name = "kratos-selfservice-ui"
-version = "0.1.0"
+version = "0.1.1"
 description = "Mountable FastAPI + React reference self-service UI for Ory Kratos."
 readme = "README.md"
 license = { file = "LICENSE" }
