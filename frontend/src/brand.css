@@ -1,0 +1,63 @@
+/*
+ * brand overrides for @ory/elements-react.
+ * Tokens MUST be scoped to .ory-elements — the default theme declares them on
+ * that selector, which outranks :root in specificity.
+ */
+
+.ory-elements {
+  /* Brand scale — navy, anchored at 500 */
+  --brand-50:  #e8f0f9;
+  --brand-100: #d4e7fc;
+  --brand-200: #93c2f8;
+  --brand-300: #5a9ae8;
+  --brand-400: #2575d4;
+  --brand-500: #003087;
+  --brand-600: #002d56;
+  --brand-700: #00264a;
+  --brand-800: #001f3d;
+  --brand-900: #00172e;
+  --brand-950: #000d1c;
+
+  /* Page chrome — white surface, dark ink, cool neutral grays */
+  --interface-background-default-primary: #ffffff;
+  --interface-background-default-secondary: #f2f2f2;
+  --interface-background-default-tertiary: #e8f0f9;
+  --interface-background-default-inverted: #002d56;
+  --interface-foreground-default-primary: #232323;
+  --interface-foreground-default-secondary: #666666;
+  --interface-foreground-default-tertiary: #b6b6b6;
+  --interface-foreground-default-inverted: #ffffff;
+  --interface-border-default-primary: #b6b6b6;
+
+  /* Brand surface — navy CTA */
+  --interface-background-brand-primary: var(--brand-500);
+  --interface-background-brand-primary-hover: var(--brand-600);
+  --interface-background-brand-secondary: var(--brand-50);
+  --interface-background-brand-secondary-hover: var(--brand-100);
+  --interface-foreground-brand-primary: var(--brand-500);
+  --interface-foreground-brand-on-primary: #ffffff;
+  --interface-foreground-brand-on-secondary: var(--brand-500);
+  --interface-border-brand-brand: var(--brand-500);
+
+  /* Mirror onto the color-* aliases the theme also reads */
+  --color-interface-background-brand-primary: var(--brand-500);
+  --color-interface-foreground-brand-primary: var(--brand-500);
+}
+
+html, body {
+  margin: 0;
+  min-height: 100vh;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  box-sizing: border-box;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(0, 174, 239, 0.10), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgba(0, 48, 135, 0.12), transparent 60%),
+    #f2f2f2;
+}
