@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import type { LogoutFlow } from "@ory/client-fetch";
+import { withBase } from "../basePath";
 
 export function LogoutLink() {
   const [logoutUrl, setLogoutUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    void fetch("/self-service/logout/browser", {
+    void fetch(withBase("/self-service/logout/browser"), {
       headers: { Accept: "application/json" },
     }).then(async (res) => {
       if (res.status === 200) {
