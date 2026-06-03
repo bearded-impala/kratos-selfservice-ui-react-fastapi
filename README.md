@@ -12,6 +12,9 @@ Drop-in replacement for
 ## Prerequisites
 
 - **Reopen in Container:**
+  - Windows/Linux: `Ctrl + Shift + P` OR macOS: `Cmd + Shift + P`
+  - Type `Reopen in Container`
+  - Select the command `Dev Containers: Reopen in Container`
 
 - **Ory Kratos:**
 This repo does not manage Kratos, BYOK. Make sure its **public** port is reachable from this UI process and that its self-service flow `ui_url`s point back at where you run this UI (default `http://127.0.0.1:4455/<flow>`).
