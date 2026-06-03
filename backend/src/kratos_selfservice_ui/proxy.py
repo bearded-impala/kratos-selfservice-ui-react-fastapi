@@ -1,10 +1,13 @@
-from collections.abc import AsyncIterator
-from contextlib import asynccontextmanager
+from collections.abc import AsyncIterator, Callable
+from contextlib import AsyncExitStack, asynccontextmanager
+from typing import Any
 
 import httpx
 from fastapi import APIRouter, FastAPI, Request
 from starlette.background import BackgroundTask
 from starlette.responses import StreamingResponse
+
+Lifespan = Callable[[FastAPI], Any]
 
 _HOP_BY_HOP = frozenset({
     "connection",
@@ -32,7 +35,19 @@ def build_lifespan(kratos_public_url: str):
     return lifespan
 
 
+def combine_lifespans(*lifespans: Lifespan) -> Lifespan:
+    @asynccontextmanager
+    async def combined(app: FastAPI) -> AsyncIterator[None]:
+        async with AsyncExitStack() as stack:
+            for lifespan in lifespans:
+                await stack.enter_async_context(lifespan(app))
+            yield
+
+    return combined
+
+
 router = APIRouter()
+proxy_router = router  # public alias for composition
 
 
 async def _forward(upstream_path: str, request: Request) -> StreamingResponse:
