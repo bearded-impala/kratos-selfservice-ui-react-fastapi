@@ -1,4 +1,4 @@
-"""Minimal host FastAPI app embedding the Kratos UI under /backend.
+"""Minimal host FastAPI app embedding the Kratos UI under /app.
 
 Run from the repo root:
 
@@ -7,9 +7,9 @@ Run from the repo root:
 
 Browse:
     /            -> host's own page
-    /backend/login  -> embedded Kratos UI
+    /app/login  -> embedded Kratos UI
 
-Kratos `ui_url`s must point at /backend/<flow> on this host (not /<flow>).
+Kratos `ui_url`s must point at /app/<flow> on this host (not /<flow>).
 """
 
 import os
@@ -26,7 +26,7 @@ from kratos_selfservice_ui import (
     proxy_router,
 )
 
-MOUNT = "/backend"
+MOUNT = "/app"
 
 ui_lifespan = build_lifespan(os.environ["KRATOS_PUBLIC_URL"])
 
