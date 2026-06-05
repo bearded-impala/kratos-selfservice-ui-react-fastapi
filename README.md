@@ -73,11 +73,13 @@ renders the corresponding `@ory/elements-react` component.
 
 ## Run as container
 
-| Variable             | Required? | Purpose                                         |
-|----------------------|-----------|-------------------------------------------------|
-| `KRATOS_PUBLIC_URL`  | yes       | Kratos public endpoint to proxy (e.g. `http://host.docker.internal:4433`) |
-| `PORT`               | no (4455) | Port the UI listens on                          |
-| `ORY_CONFIG`         | no (`{}`) | JSON merged into the SPA's `OryClientConfiguration`. Use `project.*` for branding (`name`, `logo_light_url`, ...) and `intl.*` for locale / `customTranslations`. E.g. `{"project":{"name":"Acme","logo_light_url":"/branding/acme.svg"},"intl":{"locale":"de"}}`. |
+| Variable                | Required? | Purpose                                         |
+|-------------------------|-----------|-------------------------------------------------|
+| `KRATOS_PUBLIC_URL`     | yes       | Kratos public endpoint to proxy (e.g. `http://host.docker.internal:4433`) |
+| `PORT`                  | no (4455) | Port the UI listens on                          |
+| `KRATOS_UI_BASE_PATH`   | no (`""`) | Public path prefix the browser sees (e.g. `/.ory/ui`). Affects `<base href>`, react-router `basename`, and the SDK URL handed to `@ory/elements-react`. Leave empty to serve at root. |
+| `KRATOS_UI_MOUNT_PATH`  | no (= `KRATOS_UI_BASE_PATH`) | Internal path prefix FastAPI serves at. Set to `""` when fronted by a reverse proxy that **strips** the public prefix; otherwise leave unset. |
+| `ORY_CONFIG`            | no (`{}`) | JSON merged into the SPA's `OryClientConfiguration`. Use `project.*` for branding (`name`, `logo_light_url`, ...), `intl.*` for locale / `customTranslations`, and `sdk.url` to point form submissions at a different Kratos endpoint than the built-in proxy. E.g. `{"project":{"name":"Acme","logo_light_url":"/branding/acme.svg"},"intl":{"locale":"de"}}`. |
 
 ### Build Once
 ```bash

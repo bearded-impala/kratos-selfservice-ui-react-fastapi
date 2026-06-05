@@ -5,7 +5,13 @@ services:
     ports: ["4455:4455"]
     environment:
       KRATOS_PUBLIC_URL: http://host.docker.internal:4433
-      KRATOS_UI_BASE_PATH: /
+      # Mount under a sub-path (e.g. behind a reverse proxy). Leave unset for root.
+      #   KRATOS_UI_BASE_PATH:  public prefix the browser sees (default: "")
+      #   KRATOS_UI_MOUNT_PATH: internal prefix FastAPI serves at
+      #                         (default: same as KRATOS_UI_BASE_PATH).
+      #                         Set to "" when the proxy strips the prefix.
+      # KRATOS_UI_BASE_PATH: /.ory/ui
+      # KRATOS_UI_MOUNT_PATH: ""
       ORY_CONFIG: |
         {
           "project": {

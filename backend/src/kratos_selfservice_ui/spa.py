@@ -21,14 +21,21 @@ def _normalize_prefix(prefix: str) -> str:
     return prefix.rstrip("/")
 
 
-def mount_spa(app: FastAPI, prefix: str = "") -> None:
+def mount_spa(
+    app: FastAPI,
+    prefix: str = "",
+    public_prefix: str | None = None,
+) -> None:
     prefix = _normalize_prefix(prefix)
+    public_prefix = (
+        prefix if public_prefix is None else _normalize_prefix(public_prefix)
+    )
 
     config_json = os.environ.get("ORY_CONFIG", "").strip() or "{}"
     json.loads(config_json)
 
     raw = (_FRONTEND_DIST / "index.html").read_text(encoding="utf-8")
-    rendered = raw.replace(_BASE_PLACEHOLDER, prefix).replace(
+    rendered = raw.replace(_BASE_PLACEHOLDER, public_prefix).replace(
         _CONFIG_PLACEHOLDER, html.escape(config_json, quote=True)
     )
 

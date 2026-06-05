@@ -16,6 +16,10 @@ const overrides: Partial<OryClientConfiguration> = JSON.parse(
 
 export const oryConfig = {
   ...overrides,
+  sdk: {
+    url: basePath || window.location.origin,
+    ...(overrides.sdk ?? {}),
+  },
   project: {
     login_ui_url: withBase("/login"),
     registration_ui_url: withBase("/registration"),
