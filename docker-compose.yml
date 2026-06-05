@@ -1,15 +1,23 @@
 services:
   kratos-selfservice-ui:
-    image: ghcr.io/bearded-impala/kratos-selfservice-ui-react-fastapi:latest
-    pull_policy: always
+    image: kratos-selfservice-ui:dev
+    build: .
     ports: ["4455:4455"]
     environment:
       KRATOS_PUBLIC_URL: http://host.docker.internal:4433
+      KRATOS_UI_BASE_PATH: /
       ORY_CONFIG: |
         {
           "project": {
-            "name":"Company",
-            "logo_light_url":"https://www.svgrepo.com/download/330413/fastapi.svg"
+            "name": "Company",
+            "default_locale": "en",
+            "logo_light_url": "https://www.svgrepo.com/download/330413/fastapi.svg",
+            "favicon_light_url": "https://www.svgrepo.com/download/330413/fastapi.svg",
+            "registration_enabled": true,
+            "recovery_enabled": true,
+            "verification_enabled": true
           },
-          "intl":{"locale":"en"}
+          "intl": {
+            "locale": "en"
+          }
         }
