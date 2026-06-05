@@ -4,8 +4,7 @@ function readBasePath(): string {
   const meta = document.querySelector<HTMLMetaElement>(
     'meta[name="kratos-ui-base"]',
   );
-  const raw = meta?.content ?? "";
-  return raw.replace(/\/$/, "");
+  return (meta?.content ?? "").replace(/\/$/, "");
 }
 
 export const basePath = readBasePath();

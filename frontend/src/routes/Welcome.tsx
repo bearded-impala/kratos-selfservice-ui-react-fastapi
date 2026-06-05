@@ -1,24 +1,27 @@
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useSession } from "@ory/elements-react/client";
 import { LogoutLink } from "../components/LogoutLink";
 
 export function WelcomePage() {
   const { session, isLoading, initialized } = useSession();
+  const navigate = useNavigate();
 
-  if (!initialized || isLoading) return null;
+  useEffect(() => {
+    if (initialized && !isLoading && !session) {
+      navigate("/login", { replace: true });
+    }
+  }, [initialized, isLoading, session, navigate]);
 
-  if (!session) {
-    window.location.replace("/login");
-    return null;
-  }
+  if (!initialized || isLoading || !session) return null;
 
-  const identity = session.identity;
-  const label = identity?.id ?? "there";
+  const label = session.identity?.id ?? "there";
 
   return (
     <main style={{ padding: "2rem", fontFamily: "system-ui" }}>
       <h1>Welcome, {label}</h1>
       <p>
-        <a href="/settings">Account settings</a>
+        <Link to="/settings">Account settings</Link>
       </p>
       <LogoutLink />
     </main>

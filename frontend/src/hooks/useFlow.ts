@@ -12,7 +12,7 @@ function initFlow(
   if (useFlowId) next.set("flow", useFlowId);
   const qs = next.toString();
   window.location.replace(
-    `/self-service/${flowType}/browser${qs ? `?${qs}` : ""}`,
+    `self-service/${flowType}/browser${qs ? `?${qs}` : ""}`,
   );
 }
 
