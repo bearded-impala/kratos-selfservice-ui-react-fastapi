@@ -41,7 +41,3 @@ docker run --rm --name kratos-ui
   -e ORY_CONFIG
   kratos-selfservice-ui:dev
 """
-
-[tasks.docker-up]
-help = "One-shot: install + build + run the UI."
-sequence = ["docker-build", "docker-run"]

@@ -87,29 +87,19 @@ poe docker-build
 ### Run anyhow
 
 1. Point to any Kratos
-```
-KRATOS_PUBLIC_URL=http://host.docker.internal:4433 poe docker-run
+```bash
+KRATOS_PUBLIC_URL=http://host.docker.internal:4433 \
+poe docker-run
 ```
 
 2. Ory Config
 ```bash
 KRATOS_PUBLIC_URL=http://host.docker.internal:4433 \
-ORY_CONFIG='{"project":{"name":"Company"},"intl":{"locale":"fr"}}' \
-poe docker-up
+ORY_CONFIG='{"project":{"name":"Company", "logo_light_url":"https://www.svgrepo.com/download/330413/fastapi.svg"},"intl":{"locale":"en"}}' \
+poe docker-run
 ```
 
-## Docker compose reference
-
-Pulls the published image from GHCR:
-
-```yaml
-...
-services:
-  kratos-selfservice-ui:
-    image: ghcr.io/bearded-impala/kratos-selfservice-ui-react-fastapi:latest
-    ports: ["4455:4455"]
-    environment:
-      KRATOS_PUBLIC_URL: http://host.docker.internal:4433
-      ORY_CONFIG: {"project":{"name":"Company"},"intl":{"locale":"fr"}}
-...
+3.  Docker compose
+```bash
+docker compose up
 ```
