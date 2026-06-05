@@ -17,9 +17,9 @@ cwd = "frontend"
 [tasks.dev]
 help = "Run the UI. Override KRATOS_PUBLIC_URL / PORT as needed."
 cmd = "uv run kratos-selfservice-ui"
-env = { KRATOS_PUBLIC_URL.default = "http://host.docker.internal:4433", PORT.default = "4455" }
+env = { ORY_CONFIG.default = '{"project":{"name":"Company"},"intl":{"locale":"de"}}', KRATOS_PUBLIC_URL.default = "http://host.docker.internal:4433", PORT.default = "4455" }
 
-[tasks.up]
+[tasks.dev-up]
 help = "One-shot: install + build + run the UI."
 sequence = ["install", "build", "dev"]
 
@@ -32,10 +32,16 @@ help = "Build the production container image."
 cmd = "docker build -t kratos-selfservice-ui:dev ."
 
 [tasks.docker-run]
-help = "Run the production image. Override KRATOS_PUBLIC_URL as needed."
+help = "Run the production image. Override KRATOS_PUBLIC_URL / ORY_CONFIG as needed."
+env = { KRATOS_PUBLIC_URL.default = "http://host.docker.internal:4433", ORY_CONFIG.default = '{"project":{"name":"Company"},"intl":{"locale":"fr"}}' }
 cmd = """
 docker run --rm --name kratos-ui
   -p 4455:4455
-  -e KRATOS_PUBLIC_URL=${KRATOS_PUBLIC_URL:-http://host.docker.internal:4433}
+  -e KRATOS_PUBLIC_URL
+  -e ORY_CONFIG
   kratos-selfservice-ui:dev
 """
+
+[tasks.docker-up]
+help = "One-shot: install + build + run the UI."
+sequence = ["docker-build", "docker-run"]
