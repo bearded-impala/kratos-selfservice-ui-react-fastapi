@@ -73,17 +73,29 @@ renders the corresponding `@ory/elements-react` component.
 
 ## Run as container
 
-Two environment variables:
+| Variable             | Required? | Purpose                                         |
+|----------------------|-----------|-------------------------------------------------|
+| `KRATOS_PUBLIC_URL`  | yes       | Kratos public endpoint to proxy (e.g. `http://host.docker.internal:4433`) |
+| `PORT`               | no (4455) | Port the UI listens on                          |
+| `ORY_CONFIG`         | no (`{}`) | JSON merged into the SPA's `OryClientConfiguration`. Use `project.*` for branding (`name`, `logo_light_url`, ...) and `intl.*` for locale / `customTranslations`. E.g. `{"project":{"name":"Acme","logo_light_url":"/branding/acme.svg"},"intl":{"locale":"de"}}`. |
 
-| Variable            | Required? | Purpose                                         |
-|---------------------|-----------|-------------------------------------------------|
-| `KRATOS_PUBLIC_URL` | yes       | Kratos public endpoint to proxy (e.g. `http://host.docker.internal:4433`) |
-| `PORT`              | no (4455) | Port the UI listens on                          |
-
-
+### Build Once
 ```bash
 poe docker-build
+```
+
+### Run anyhow
+
+1. Point to any Kratos
+```
 KRATOS_PUBLIC_URL=http://host.docker.internal:4433 poe docker-run
+```
+
+2. Ory Config
+```bash
+KRATOS_PUBLIC_URL=http://host.docker.internal:4433 \
+ORY_CONFIG='{"project":{"name":"Company"},"intl":{"locale":"fr"}}' \
+poe docker-up
 ```
 
 ## Docker compose reference
@@ -98,5 +110,6 @@ services:
     ports: ["4455:4455"]
     environment:
       KRATOS_PUBLIC_URL: http://host.docker.internal:4433
+      ORY_CONFIG: {"project":{"name":"Company"},"intl":{"locale":"fr"}}
 ...
 ```
